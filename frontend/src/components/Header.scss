@@ -1,15 +1,17 @@
 header {
+  position: fixed;
   display: flex;
   margin: auto;
+  padding: 32px 32px;
   height: 10vh;
-  width: 90%;
+  width: 100%;
   align-items: center;
 }
 .logo {
   flex: 1;
 }
-.menu {
-//   flex: 1;
+.menu-nav {
+  background: transparent !important;
 }
 .ant-menu{
     border-bottom: 0 !important;

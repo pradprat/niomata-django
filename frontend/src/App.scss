@@ -1,3 +1,17 @@
 .App-header{
     background: black !important;
 }
+.home-background{
+    position: absolute;
+    min-width: 550px;
+    width: 55vw;
+}
+.home-background{
+    height: 100%;
+    width: 100%;
+    // background-attachment: fixed;
+    background:url(./assets/images/rectangle.svg);
+    background-repeat: no-repeat;
+    background-size: calc(50%);
+    // overflow: hidden;
+}

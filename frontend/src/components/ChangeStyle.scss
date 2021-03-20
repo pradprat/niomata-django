@@ -1,0 +1,22 @@
+.custom-slider .ant-slider-handle {
+  color: black !important;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-16%) translateX(-50%) !important;
+}
+.custom-slider .ant-slider-rail {
+  color: black !important;
+  height: 10px;
+}
+
+.custom-slider .ant-slider-track {
+  color: black !important;
+  height: 10px;
+}
+.configurator-container{
+    // background: black;
+    box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.30);
+    padding: 32px;
+    min-height: 100vh;
+    width: 100%;
+}
