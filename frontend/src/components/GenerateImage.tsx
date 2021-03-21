@@ -17,27 +17,85 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
   const [slider, setslider] = useState(50);
   const [typeSelected, settypeselected] = useState("pushchair");
   const [inspirationSelected, setinspirationSelected] = useState(1);
-  const imgsNumber = [];
-  for (let i = 50; i < 100; i++) {
-    imgsNumber.push(i);
+  const [inspirationDisplay, setinspirationDisplay] = useState("pushchair_1");
+  const imgsNames: string[] = [];
+
+  const changeInspiration = async (inspiration: number) => {
+    let first =
+      inspiration > inspirationSelected ? inspirationSelected : inspiration;
+    let second =
+      inspiration > inspirationSelected ? inspiration : inspirationSelected;
+    let isReverse = inspiration > inspirationSelected;
+    if (isReverse) {
+      for (let num = 1; num <= 4; num++) {
+        if (num === 4) {
+          setTimeout(() => {
+            let filename = typeSelected + "_" + inspiration;
+            console.log(filename);
+            setinspirationDisplay(filename);
+          }, num * 25);
+        } else {
+          setTimeout(() => {
+            let filename =
+              typeSelected + "_" + first + "_to_" + second + "_" + num;
+            console.log(filename);
+            setinspirationDisplay(filename);
+          }, num * 25);
+        }
+      }
+    } else {
+      for (let revNum = 3; revNum > -1; revNum--) {
+        if (revNum === 0) {
+          setTimeout(() => {
+            let filename = typeSelected + "_" + inspiration;
+            console.log(filename);
+            setinspirationDisplay(filename);
+          }, (3 - revNum) * 25);
+        } else {
+          setTimeout(() => {
+             let filename =
+              typeSelected + "_" + first + "_to_" + second + "_" + revNum;
+            console.log(filename);
+            setinspirationDisplay(filename);
+          }, (3 - revNum) * 25);
+        }
+      }
+    }
+  };
+  // for (let i = 50; i < 100; i++) {
+  //   imgsNames.push(i);
+  // }
+  for (let i = 1; i <= 6; i++) {
+    let filename = typeSelected + "_" + i;
+    imgsNames.push(filename);
+    for (let j = 1; j <= 3; j++) {
+      let filename = typeSelected + "_" + i + "_to_" + (i + 1) + "_" + j;
+      imgsNames.push(filename);
+    }
   }
+
   return (
     <>
       <div>
         <Row className="container">
           <Col span={12}>
             <div className="generated-images">
-              {imgsNumber.map((num: number) => {
-                return (
-                  <img
-                    src={
-                      require("../assets/images/slider/frame000" + num + ".png")
-                        .default
-                    }
-                    alt=""
-                    className={num !== slider ? "invisible" : ""}
-                  />
-                );
+              {imgsNames.map((name: string) => {
+                try{
+                  return (
+                    <img
+                      src={
+                        require("../assets/images/slider/inspiration2/" +
+                          name +
+                          ".png").default
+                      }
+                      alt=""
+                      className={inspirationDisplay !== name ? "invisible" : ""}
+                    />
+                  );
+                }catch(e){
+
+                }
               })}
             </div>
             <div className="type-selector">
@@ -94,6 +152,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                       }
                       hoverable
                       onClick={() => {
+                        changeInspiration(num);
                         setinspirationSelected(num);
                       }}
                     >
