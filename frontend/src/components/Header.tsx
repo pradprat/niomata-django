@@ -12,7 +12,7 @@ export const Header: React.FC<HeaderProps> = () => {
   return (
     <header>
       <div className="logo">
-        <h1 style={{color:"white"}}><strong>AR</strong>kid</h1>
+        <h1 style={{color:"#1f3260"}}><strong>AR</strong>kid</h1>
         {/* <img src={logo} height="30" /> */}
       </div>
       <div className="menu">

@@ -11,7 +11,7 @@ function App() {
   const [page, setpage] = useState("generate");
   return (
     <div className="App">
-      <img className="home-background" />
+      {/* <img className="home-background" /> */}
       <Header></Header>
       {(page === "generate" && <GenerateImage onGenerate={()=>{setpage("changeStyle")}}></GenerateImage>) || (
         <ChangeStyle></ChangeStyle>

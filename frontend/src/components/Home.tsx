@@ -11,7 +11,8 @@ interface HomeProps {}
 export const Home: React.FC<HomeProps> = () => {
   return (
     <div className="home">
-      <img src={background} className="home-background" />
+      {/* <img src={background} className="home-background" /> */}
+      
       <div className="presentation">
         <div className="home-content">
           <div className="text-content">

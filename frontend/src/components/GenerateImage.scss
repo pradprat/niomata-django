@@ -47,9 +47,9 @@
   position: absolute;
   width: auto;
   margin: auto;
-  left: 0;
+  left:25%;
   bottom: 0;
-  margin: 32px;
+  margin-bottom: 32px;
 }
 .invisible {
   display: none;
@@ -80,15 +80,18 @@
   line-height: 1.5;
   display: inline-block;
   vertical-align: middle;
+  border-color: #1f3260;
+  color: #1f3260;
 }
 .button-type-select:hover {
   // font-size: 6vh;
   margin: 0 0em;
   height: 2em !important;
   width: 2em !important;
-  background: white !important;
-  color: #0495D9 !important;
-  border-color: white !important;
+  background: #1f3260 !important;
+  color: white !important;
+  // color: #0495D9 !important;
+  // border-color: white !important;
 }
 
 .button-type-active {
@@ -96,9 +99,9 @@
   margin: 0 0.2em !important;
   height: 2em !important;
   width: 2em !important;
-  background: white !important;
-  color: #0495D9 !important;
-  border-color: white !important;
+  background: #1f3260 !important;
+  color: white !important;
+  // border-color: white !important;
 }
 .inspiration-thumbnail {
   width: 139px !important;
@@ -136,7 +139,7 @@
   color: #1f3260;
   border-style: solid !important;
   border-width: 3px !important;
-  border-color: #1f3260 !important;
+  border-color: rgb(243, 243, 243) !important;
 }
 .btn-generate-inspiration:hover {
   color: white;
