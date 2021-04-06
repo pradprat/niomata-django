@@ -18,7 +18,7 @@ function App() {
         <ChangeStyle></ChangeStyle>
       )}
       {/* <Loading></Loading> */}
-      <ChangeStyle></ChangeStyle>
+      {/* <ChangeStyle></ChangeStyle> */}
     </div>
   );
 }

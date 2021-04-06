@@ -13,20 +13,22 @@ const { SubMenu } = Menu;
 interface GenerateImageProps {
     onGenerate: () => any;
 }
-let base_url = "http://6a6feb1f8176.ngrok.io/";
+let base_url = "http://da33ddadf13a.ngrok.io/";
 export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     const [slider, setslider] = useState(50);
     const [typeSelected, settypeselected] = useState("stroller");
     const [inspirationSelected, setinspirationSelected] = useState(1);
-    const [inspirationDisplay, setinspirationDisplay] = useState("pushchair_1");
+    const [inspirationDisplay, setinspirationDisplay] = useState(
+        typeSelected + "_1"
+    );
     const [loading, setloading] = useState(true);
     const imgsNames: string[] = [];
 
     useEffect(() => {
-        generateImage(typeSelected).then((res) => {
-            console.log(res);
-            setloading(false);
-        });
+        // generateImage(typeSelected).then((res) => {
+        //     console.log(res);
+        //     setloading(false);
+        // });
         return () => {};
     }, []);
 
@@ -92,11 +94,14 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     //   imgsNames.push(i);
     // }
     for (let i = 1; i <= 6; i++) {
-        let filename = typeSelected + "_" + i + "_to_" + (i + 1) + "_" + 0;
+        let filename = typeSelected + "_" + i;
         imgsNames.push(filename);
-        for (let j = 1; j <= 1; j++) {
-            let filename = typeSelected + "_" + i + "_to_" + (i + 1) + "_" + j;
-            imgsNames.push(filename);
+        if (i < 6) {
+            for (let j = 1; j <= 3; j++) {
+                let filename =
+                    typeSelected + "_" + i + "_to_" + (i + 1) + "_" + j;
+                imgsNames.push(filename);
+            }
         }
     }
     console.log(imgsNames);
@@ -107,7 +112,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                 <Row className="container">
                     <Col span={12}>
                         <div className="generated-images">
-                            {!loading && (
+                            {/* {!loading && (
                                 <img
                                     src={
                                         base_url +
@@ -128,23 +133,18 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                                     // }
                                     alt=""
                                 />
-                            )}
-                            {/* {imgsNames.map((name: string) => {
+                            )} */}
+                            {imgsNames.map((name: string) => {
                                 try {
                                     return (
                                         <img
                                             src={
-                                                base_url +
-                                                typeSelected +
-                                                "/" +
-                                                name +
-                                                ".jpg"
+                                                require("../assets/images/output/" +
+                                                    typeSelected +
+                                                    "/" +
+                                                    name +
+                                                    ".jpg").default
                                             }
-                                            // src={
-                                            //   require("../assets/images/slider/inspiration2/" +
-                                            //     name +
-                                            //     ".png").default
-                                            // }
                                             alt=""
                                             className={
                                                 inspirationDisplay !== name
@@ -154,7 +154,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                                         />
                                     );
                                 } catch (e) {}
-                            })} */}
+                            })}
                         </div>
                         <div className="type-selector">
                             <Button
@@ -220,51 +220,26 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                                                 setinspirationSelected(num);
                                             }}
                                         >
-                                            {!loading &&
-                                                ((num < 6 && (
-                                                    <img
-                                                        src={
-                                                            base_url +
-                                                            typeSelected +
-                                                            "/" +
-                                                            typeSelected +
-                                                            "_" +
-                                                            num +
-                                                            "_to_" +
-                                                            (num + 1) +
-                                                            "_0" +
-                                                            ".jpg"
-                                                        }
-                                                        // src={
-                                                        //   require("../assets/images/slider/inspiration/pushchair_" +
-                                                        //     num +
-                                                        //     ".png").default
-                                                        // }
-                                                    ></img>
-                                                )) || (
-                                                    <img
-                                                        src={
-                                                            base_url +
-                                                            typeSelected +
-                                                            "/" +
-                                                            typeSelected +
-                                                            "_" +
-                                                            (num - 1) +
-                                                            "_to_" +
-                                                            num +
-                                                            "_4" +
-                                                            ".jpg"
-                                                        }
-                                                        // src={
-                                                        //   require("../assets/images/slider/inspiration/pushchair_" +
-                                                        //     num +
-                                                        //     ".png").default
-                                                        // }
-                                                    ></img>
-                                                ))}
-                                            {inspirationSelected == num && (
-                                                <div className="active-inspiration"></div>
-                                            )}
+                                            <img
+                                                // src={
+                                                //     base_url +
+                                                //     typeSelected +
+                                                //     "/" +
+                                                //     typeSelected +
+                                                //     "_" +
+                                                //     num +
+                                                //     ".jpg?"+Math.random()
+                                                // }
+                                                src={
+                                                    require("../assets/images/output/" +
+                                                        typeSelected +
+                                                        "/" +
+                                                        typeSelected +
+                                                        "_" +
+                                                        num +
+                                                        ".jpg").default
+                                                }
+                                            ></img>
                                         </Card>
                                     </Col>
                                 ))}

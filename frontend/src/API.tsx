@@ -1,5 +1,5 @@
 import axios from "axios";
-const base_url = "http://5eec898894be.ngrok.io/";
+const base_url = "http://ee4bd2380562.ngrok.io/";
 function handleUploadProgress(ev:any) {
     console.log(ev);
     // do your thing here

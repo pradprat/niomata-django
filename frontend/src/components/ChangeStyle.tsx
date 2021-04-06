@@ -188,7 +188,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                             </Button> */}
                             <div className="btn-container">
                                 <Button
-                                    className="btn-customize"
+                                    className="btn-apply-style"
                                     type="primary"
                                 >
                                     {/* <img
@@ -200,7 +200,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                     Apply
                                 </Button>
                                 <Button
-                                    className="btn-customize"
+                                    className="btn-set-texture"
                                     type="primary"
                                 >
                                     {/* <img

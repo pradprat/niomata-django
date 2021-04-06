@@ -153,7 +153,16 @@
     position: absolute;
     // transform: translateY(-50%);
 }
-.btn-customize {
+
+.btn-apply-style {
+    margin-right: 16px;
+    width: 200px;
+    font-weight: 700;
+    font-size: 16px;
+    height: 64px;
+    border-radius: 10px;
+}
+.btn-set-texture {
     margin-right: 16px;
     width: 200px;
     font-weight: 700;
