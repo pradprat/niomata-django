@@ -13,10 +13,10 @@ const { SubMenu } = Menu;
 interface GenerateImageProps {
     onGenerate: () => any;
 }
-let base_url = "http://c4ecdb51c17c.ngrok.io/";
+let base_url = "http://6a6feb1f8176.ngrok.io/";
 export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     const [slider, setslider] = useState(50);
-    const [typeSelected, settypeselected] = useState("childseat");
+    const [typeSelected, settypeselected] = useState("stroller");
     const [inspirationSelected, setinspirationSelected] = useState(1);
     const [inspirationDisplay, setinspirationDisplay] = useState("pushchair_1");
     const [loading, setloading] = useState(true);
@@ -94,7 +94,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     for (let i = 1; i <= 6; i++) {
         let filename = typeSelected + "_" + i + "_to_" + (i + 1) + "_" + 0;
         imgsNames.push(filename);
-        for (let j = 1; j <= 3; j++) {
+        for (let j = 1; j <= 1; j++) {
             let filename = typeSelected + "_" + i + "_to_" + (i + 1) + "_" + j;
             imgsNames.push(filename);
         }

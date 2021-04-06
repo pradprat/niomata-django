@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 import background from "./assets/images/rectangle.svg";
 import { GenerateImage } from "./components/GenerateImage";
 import { ChangeStyle } from "./components/ChangeStyle";
+import { Loading } from "./components/Loading";
 
 function App() {
   const [page, setpage] = useState("generate");
@@ -16,7 +17,8 @@ function App() {
       {(page === "generate" && <GenerateImage onGenerate={()=>{setpage("changeStyle")}}></GenerateImage>) || (
         <ChangeStyle></ChangeStyle>
       )}
-      {/* <ChangeStyle></ChangeStyle> */}
+      {/* <Loading></Loading> */}
+      <ChangeStyle></ChangeStyle>
     </div>
   );
 }
