@@ -34,15 +34,15 @@ function App() {
         <div className="App">
             {/* <img className="home-background" /> */}
             <Header></Header>
-            {(page === "generate" && (
+            {/* {(page === "generate" && (
                 <GenerateImage
                     onGenerate={() => {
                         setpage("changeStyle");
                     }}
                 ></GenerateImage>
-            )) || <ChangeStyle></ChangeStyle>}
+            )) || <ChangeStyle></ChangeStyle>} */}
             {/* <Loading></Loading> */}
-            {/* <ChangeStyle></ChangeStyle> */}
+            <ChangeStyle></ChangeStyle>
         </div>
     );
 }

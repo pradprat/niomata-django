@@ -24,6 +24,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     const [inspirationDisplay, setinspirationDisplay] = useState(
         typeSelected + "_1"
     );
+    const [inspirationImages, setinspirationImages] = useState(new Array());
     const [loading, setloading] = useState(true);
     let tempimgsNames: string[] = [];
     const [value, loading_firebase, error] = useDownloadURL(
@@ -49,7 +50,6 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                 if (num === 4) {
                     setTimeout(() => {
                         let filename = typeSelected + "_" + inspiration;
-                        console.log(filename);
                         setinspirationDisplay(filename);
                     }, num * 25);
                 } else {
@@ -62,7 +62,6 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                             second +
                             "_" +
                             num;
-                        // console.log(filename);
                         setinspirationDisplay(filename);
                     }, num * 25);
                 }
@@ -72,7 +71,6 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                 if (revNum === 0) {
                     setTimeout(() => {
                         let filename = typeSelected + "_" + inspiration;
-                        console.log(filename);
                         setinspirationDisplay(filename);
                     }, (3 - revNum) * 25);
                 } else {
@@ -85,7 +83,6 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                             second +
                             "_" +
                             revNum;
-                        console.log(filename);
                         setinspirationDisplay(filename);
                     }, (3 - revNum) * 25);
                 }
@@ -94,16 +91,11 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     };
 
     const setImage = (type: string) => {
-        // console.log(type);
-        // console.log(typeSelected);
-        // console.log(imgsNames);
-
         imgsNames.map((img) => {
             storageRef
                 .child("output/" + type + "/" + img + ".jpg")
                 .getDownloadURL()
                 .then((url) => {
-                    // console.log(url);
                     try {
                         let a = imgsDisplay.find(
                             (imgDis) => imgDis.name === img
@@ -112,12 +104,9 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                         let imgDisplayTemp = imgsDisplay;
                         imgDisplayTemp.push({ url: url, name: img });
                         setimgsDisplay(imgDisplayTemp);
+                        changeInspiration(1);
+                        setinspirationSelected(1);
                     }
-                    // if (imgsDisplay.find((imgDis) => imgDis.name === img).url) {
-                    //     console.log(img);
-                    // } else {
-                    //     console.log(img);
-                    // }
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -143,7 +132,6 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
         }
         tempimgsNames = Array.from(new Set(tempimgsNames));
         setimgsNames(tempimgsNames);
-        console.log(tempimgsNames);
         setinspirationDisplay(typeSelected + "_1");
         setinspirationSelected(1);
 
@@ -151,21 +139,29 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
     }, [typeSelected]);
 
     useEffect(() => {
-        console.log(imgsNames);
-
-        console.log(typeSelected);
         setImage(typeSelected);
         setinspirationDisplay(typeSelected + "_1");
         setinspirationSelected(1);
         return () => {};
     }, [imgsNames]);
 
-
     useEffect(() => {
         forceUpdate();
-        return () => {
-        }
-    }, [imgsDisplay])
+        return () => {};
+    }, [imgsDisplay]);
+
+    useEffect(() => {
+        generateNewStyle();
+        return () => {};
+    }, []);
+    const generateNewStyle = () => {
+        generateImage(typeSelected).then(() => {
+            console.log("Done");
+        }).catch(error=>{
+            console.log(error);
+            
+        });
+    };
 
     return (
         <>
@@ -173,59 +169,15 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                 <Row className="container">
                     <Col span={12}>
                         <div className="generated-images">
-                            {/* {!loading && (
-                                <img
-                                    src={
-                                        base_url +
-                                        typeSelected +
-                                        "/" +
-                                        typeSelected +
-                                        "_" +
-                                        1 +
-                                        "_to_" +
-                                        (1 + 1) +
-                                        "_0" +
-                                        ".jpg"
-                                    }
-                                    // src={
-                                    //   require("../assets/images/slider/inspiration2/" +
-                                    //     name +
-                                    //     ".png").default
-                                    // }
-                                    alt=""
-                                />
-                            )} */}
-                            {/* {imgsNames.map((name: string) => {
-                                try {
-                                    return (
-                                        <img
-                                            src={
-                                                require("../assets/images/output/" +
-                                                    typeSelected +
-                                                    "/" +
-                                                    name +
-                                                    ".jpg").default
-                                            }
-                                            alt=""
-                                            className={
-                                                inspirationDisplay !== name
-                                                    ? "invisible"
-                                                    : ""
-                                            }
-                                        />
-                                    );
-                                } catch (e) {}
-                            })} */}
                             {imgsDisplay.map((img: any) => {
-                                
                                 return (
                                     <img
                                         src={img.url}
                                         alt=""
                                         className={
-                                            // inspirationDisplay !== img.name
-                                            false
-                                                ? "invisible"
+                                            inspirationDisplay !== img.name
+                                                ? // false
+                                                  "invisible"
                                                 : ""
                                         }
                                     />
@@ -281,44 +233,44 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                         <div className="generate-controller">
                             <h1>Inspiration</h1>
                             <Row>
-                                {[1, 2, 3, 4, 5, 6].map((num) => (
-                                    <Col>
-                                        <Card
-                                            className={
-                                                "inspiration-thumbnail " +
-                                                (inspirationSelected === num
-                                                    ? "active-inspiration-thumbnail"
-                                                    : "")
-                                            }
-                                            hoverable
-                                            onClick={() => {
-                                                changeInspiration(num);
-                                                setinspirationSelected(num);
-                                            }}
-                                        >
-                                            <img
-                                                // src={
-                                                //     base_url +
-                                                //     typeSelected +
-                                                //     "/" +
-                                                //     typeSelected +
-                                                //     "_" +
-                                                //     num +
-                                                //     ".jpg?"+Math.random()
-                                                // }
-                                                src={
-                                                    require("../assets/images/output/" +
-                                                        typeSelected +
-                                                        "/" +
-                                                        typeSelected +
-                                                        "_" +
-                                                        num +
-                                                        ".jpg").default
-                                                }
-                                            ></img>
-                                        </Card>
-                                    </Col>
-                                ))}
+                                {[1, 2, 3, 4, 5, 6].map((num) => {
+                                    try {
+                                        const imgDisplay = imgsDisplay.find(
+                                            (img) =>
+                                                img.name ===
+                                                typeSelected + "_" + num
+                                        );
+                                        return (
+                                            <Col>
+                                                <Card
+                                                    className={
+                                                        "inspiration-thumbnail " +
+                                                        (inspirationSelected ===
+                                                        num
+                                                            ? "active-inspiration-thumbnail"
+                                                            : "")
+                                                    }
+                                                    hoverable
+                                                    onClick={() => {
+                                                        changeInspiration(num);
+                                                        setinspirationSelected(
+                                                            num
+                                                        );
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={imgDisplay.url}
+                                                        onLoad={() => {
+                                                            console.log(
+                                                                imgDisplay.name
+                                                            );
+                                                        }}
+                                                    ></img>
+                                                </Card>
+                                            </Col>
+                                        );
+                                    } catch (error) {}
+                                })}
                             </Row>
                             <Button className="btn-generate-inspiration">
                                 Generate Other

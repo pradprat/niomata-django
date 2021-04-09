@@ -7,38 +7,47 @@ import { ReactComponent as stroller } from "../assets/images/stroller.svg";
 import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateStyle } from "../API";
+import { Style } from "./Style";
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
 interface ChangeStyleProps {}
-const base_url = "http://5eec898894be.ngrok.io/";
+const base_url = "http://749963837cd3.ngrok.io/";
 export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
-    const styleType = ["Tire", "Basket", "Hood", "Shaft", "Bag"];
-    const style = [
-        { id: "1101", name: "Default" },
-        { id: "1101", name: "Sport" },
-        { id: "1101", name: "Sport" },
-        { id: "1101", name: "Sport" },
-        { id: "1101", name: "Sport" },
-    ];
+    // const styleCategories = ["Tire", "Basket", "Hood", "Shaft", "Bag"];
+    const style = Style();
+
+    console.log(style);
+
+    // const style = [
+    //     { id: "1101", name: "Default" },
+    //     { id: "1101", name: "Sport" },
+    //     { id: "1101", name: "Sport" },
+    //     { id: "1101", name: "Sport" },
+    //     { id: "1101", name: "Sport" },
+    // ];
     const [typeSelected, settypeselected] = useState("stroller");
+
+    const styleCategories = style
+        .find((s) => s.type == typeSelected)
+        ?.style.map((s) => s.type) as any;
     const [slider, setslider] = useState(50);
-    const [styleTypeSelected, setstyleTypeSelected] = useState(styleType[0]);
+    const [styleCategorySelected, setstyleCategorySelected] = useState(
+        styleCategories[0]
+    );
+    const [styleType, setstyleType] = useState(styleCategorySelected[0].type);
     const [styleSelected, setstyleSelected] = useState(style[0]);
     const [imgDisplay, setimgDisplay] = useState("");
     const [imgsNames, setimgsNames] = useState(new Array());
-    // const []
+
     useEffect(() => {
-        // generateStyle("stroller").then((data) => {
-        //     console.log(data);
-        // });
         return () => {};
     }, []);
     const tempImgsNames: string[] = [];
     useEffect(() => {
         for (let i = 1; i <= 10; i++) {
             let filename =
-                typeSelected + "_style_" + styleSelected.id + "_step_" + i;
+                typeSelected + "_style_" + styleSelected.type + "_step_" + i;
             tempImgsNames.push(filename);
         }
         console.log(tempImgsNames);
@@ -108,9 +117,9 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                     </Col>
                     <Col span={12}>
                         <div className="generate-controller">
-                            <h1>Customize Pushchair</h1>
+                            <h1>Customize {typeSelected}</h1>
                             <Row>
-                                {styleType.map((style) => {
+                                {styleCategories.map((style: any) => {
                                     return (
                                         <Col
                                             style={{ marginRight: 8 }}
@@ -120,13 +129,15 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                                 className={
                                                     "btn-select-category-style" +
                                                     " " +
-                                                    (styleTypeSelected ===
+                                                    (styleCategorySelected ===
                                                         style &&
                                                         "btn-select-category-style-selected ")
                                                 }
                                                 key={style}
                                                 onClick={() => {
-                                                    setstyleTypeSelected(style);
+                                                    setstyleCategorySelected(
+                                                        style
+                                                    );
                                                 }}
                                             >
                                                 {style}
@@ -135,7 +146,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                     );
                                 })}
                             </Row>
-                            <Row className="select-style-container" >
+                            <Row className="select-style-container">
                                 {style.map((s) => {
                                     return (
                                         <Col>
@@ -143,8 +154,8 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                                 className={
                                                     "select-style" +
                                                     " " +
-                                                    (styleSelected.name ===
-                                                        s.name &&
+                                                    (styleSelected.type ===
+                                                        s.type &&
                                                         "select-style-selected")
                                                 }
                                                 hoverable
@@ -158,7 +169,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                                             .default
                                                     }
                                                 ></img>
-                                                <h3>{s.name}</h3>
+                                                <h3>{s.type}</h3>
                                             </Card>
                                         </Col>
                                     );
