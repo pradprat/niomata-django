@@ -17,6 +17,9 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
     const style = [
         { id: "1101", name: "Default" },
         { id: "1101", name: "Sport" },
+        { id: "1101", name: "Sport" },
+        { id: "1101", name: "Sport" },
+        { id: "1101", name: "Sport" },
     ];
     const [typeSelected, settypeselected] = useState("stroller");
     const [slider, setslider] = useState(50);
@@ -102,16 +105,6 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                 } catch (e) {}
                             })} */}
                         </div>
-                        <div className="style-sliders ">
-                            <Slider
-                                min={1}
-                                max={10}
-                                className="custom-slider"
-                                onChange={(val:any) => {
-                                    console.log(val);
-                                }}
-                            />
-                        </div>
                     </Col>
                     <Col span={12}>
                         <div className="generate-controller">
@@ -142,7 +135,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                     );
                                 })}
                             </Row>
-                            <Row style={{ marginTop: 32 }}>
+                            <Row className="select-style-container" >
                                 {style.map((s) => {
                                     return (
                                         <Col>
@@ -183,22 +176,30 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                     </Card>
                                 </Col> */}
                             </Row>
+                            <Row style={{ marginTop: 8 }}>
+                                <Col span={24}>
+                                    <Card className={"container-slider-style"}>
+                                        <Slider
+                                            min={1}
+                                            max={10}
+                                            className="custom-slider"
+                                            onChange={(val: any) => {
+                                                console.log(val);
+                                            }}
+                                        />
+                                        <Button
+                                            className="btn-apply-style"
+                                            type="primary"
+                                        >
+                                            Apply
+                                        </Button>
+                                    </Card>
+                                </Col>
+                            </Row>
                             {/* <Button className="btn-generate-inspiration">
                                 Generate Other
                             </Button> */}
                             <div className="btn-container">
-                                <Button
-                                    className="btn-apply-style"
-                                    type="primary"
-                                >
-                                    {/* <img
-                                    src={
-                                        require("../assets/images/art_pallete.svg")
-                                            .default
-                                    }
-                                ></img> */}
-                                    Apply
-                                </Button>
                                 <Button
                                     className="btn-set-texture"
                                     type="primary"

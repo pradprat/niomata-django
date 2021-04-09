@@ -7,7 +7,8 @@ import { ReactComponent as stroller } from "../assets/images/stroller.svg";
 import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateImage } from "../API";
-
+import { useDownloadURL } from "react-firebase-hooks/storage";
+import firebase from "firebase/app";
 const { SubMenu } = Menu;
 
 interface GenerateImageProps {
@@ -15,6 +16,8 @@ interface GenerateImageProps {
 }
 let base_url = "http://da33ddadf13a.ngrok.io/";
 export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({} as any), []);
     const [slider, setslider] = useState(50);
     const [typeSelected, settypeselected] = useState("stroller");
     const [inspirationSelected, setinspirationSelected] = useState(1);
@@ -22,15 +25,14 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
         typeSelected + "_1"
     );
     const [loading, setloading] = useState(true);
-    const imgsNames: string[] = [];
-
-    useEffect(() => {
-        // generateImage(typeSelected).then((res) => {
-        //     console.log(res);
-        //     setloading(false);
-        // });
-        return () => {};
-    }, []);
+    let tempimgsNames: string[] = [];
+    const [value, loading_firebase, error] = useDownloadURL(
+        firebase.storage().ref("/")
+    );
+    const [imgsNames, setimgsNames] = useState(new Array());
+    const [imgsDisplay, setimgsDisplay] = useState(new Array());
+    const storage = firebase.storage();
+    const storageRef = storage.ref();
 
     const changeInspiration = async (inspiration: number) => {
         let first =
@@ -60,7 +62,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                             second +
                             "_" +
                             num;
-                        console.log(filename);
+                        // console.log(filename);
                         setinspirationDisplay(filename);
                     }, num * 25);
                 }
@@ -90,21 +92,80 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
             }
         }
     };
-    // for (let i = 50; i < 100; i++) {
-    //   imgsNames.push(i);
-    // }
-    for (let i = 1; i <= 6; i++) {
-        let filename = typeSelected + "_" + i;
-        imgsNames.push(filename);
-        if (i < 6) {
-            for (let j = 1; j <= 3; j++) {
-                let filename =
-                    typeSelected + "_" + i + "_to_" + (i + 1) + "_" + j;
-                imgsNames.push(filename);
+
+    const setImage = (type: string) => {
+        // console.log(type);
+        // console.log(typeSelected);
+        // console.log(imgsNames);
+
+        imgsNames.map((img) => {
+            storageRef
+                .child("output/" + type + "/" + img + ".jpg")
+                .getDownloadURL()
+                .then((url) => {
+                    // console.log(url);
+                    try {
+                        let a = imgsDisplay.find(
+                            (imgDis) => imgDis.name === img
+                        ).url;
+                    } catch (error) {
+                        let imgDisplayTemp = imgsDisplay;
+                        imgDisplayTemp.push({ url: url, name: img });
+                        setimgsDisplay(imgDisplayTemp);
+                    }
+                    // if (imgsDisplay.find((imgDis) => imgDis.name === img).url) {
+                    //     console.log(img);
+                    // } else {
+                    //     console.log(img);
+                    // }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        });
+    };
+
+    useEffect(() => {
+        for (let i = 1; i < 7; i++) {
+            let filename = typeSelected + "_" + i;
+            tempimgsNames.push(filename);
+            for (let j = i + 1; j < 7; j++) {
+                let filename = typeSelected + "_" + j;
+                tempimgsNames.push(filename);
+                if (i < 6) {
+                    for (let l = 1; l <= 3; l++) {
+                        let filename =
+                            typeSelected + "_" + i + "_to_" + j + "_" + l;
+                        tempimgsNames.push(filename);
+                    }
+                }
             }
         }
-    }
-    console.log(imgsNames);
+        tempimgsNames = Array.from(new Set(tempimgsNames));
+        setimgsNames(tempimgsNames);
+        console.log(tempimgsNames);
+        setinspirationDisplay(typeSelected + "_1");
+        setinspirationSelected(1);
+
+        return () => {};
+    }, [typeSelected]);
+
+    useEffect(() => {
+        console.log(imgsNames);
+
+        console.log(typeSelected);
+        setImage(typeSelected);
+        setinspirationDisplay(typeSelected + "_1");
+        setinspirationSelected(1);
+        return () => {};
+    }, [imgsNames]);
+
+
+    useEffect(() => {
+        forceUpdate();
+        return () => {
+        }
+    }, [imgsDisplay])
 
     return (
         <>
@@ -134,7 +195,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                                     alt=""
                                 />
                             )} */}
-                            {imgsNames.map((name: string) => {
+                            {/* {imgsNames.map((name: string) => {
                                 try {
                                     return (
                                         <img
@@ -154,6 +215,21 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({ onGenerate }) => {
                                         />
                                     );
                                 } catch (e) {}
+                            })} */}
+                            {imgsDisplay.map((img: any) => {
+                                
+                                return (
+                                    <img
+                                        src={img.url}
+                                        alt=""
+                                        className={
+                                            // inspirationDisplay !== img.name
+                                            false
+                                                ? "invisible"
+                                                : ""
+                                        }
+                                    />
+                                );
                             })}
                         </div>
                         <div className="type-selector">
