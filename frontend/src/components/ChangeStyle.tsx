@@ -1,6 +1,16 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import "./ChangeStyle.scss";
-import { Button, Card, Col, Menu, Radio, Row, Slider, Tabs } from "antd";
+import {
+    Button,
+    Card,
+    Col,
+    Menu,
+    message,
+    Radio,
+    Row,
+    Slider,
+    Tabs,
+} from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { ReactComponent as pushchair } from "../assets/images/pushchair.svg";
 import { ReactComponent as stroller } from "../assets/images/stroller.svg";
@@ -8,80 +18,146 @@ import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateStyle } from "../API";
 import { Style } from "./Style";
-
+const base_url = "http://localhost:8000/";
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
-interface ChangeStyleProps {}
-const base_url = "http://749963837cd3.ngrok.io/";
-export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
-    // const styleCategories = ["Tire", "Basket", "Hood", "Shaft", "Bag"];
+interface ChangeStyleProps {
+    onGenerateImages: (isLoad: boolean) => void;
+    inspiration: string;
+}
+export const ChangeStyle: React.FC<ChangeStyleProps> = ({
+    onGenerateImages,
+    inspiration,
+}: ChangeStyleProps) => {
+    console.log(inspiration);
+    const [isFirst, setisFirst] = useState(true);
+    const [loading, setloading] = useState(true);
+    const [rand, setrand] = useState(1);
     const style = Style();
-
-    console.log(style);
-
-    // const style = [
-    //     { id: "1101", name: "Default" },
-    //     { id: "1101", name: "Sport" },
-    //     { id: "1101", name: "Sport" },
-    //     { id: "1101", name: "Sport" },
-    //     { id: "1101", name: "Sport" },
-    // ];
-    const [typeSelected, settypeselected] = useState("stroller");
-
-    const styleCategories = style
-        .find((s) => s.type == typeSelected)
-        ?.style.map((s) => s.type) as any;
-    const [slider, setslider] = useState(50);
+    const [typeSelected, settypeselected] = useState(inspiration.split("_")[0]);
+    const styleCategoriesData = style.find((s) => s.type == typeSelected)
+        ?.style;
+    const styleCategories = (styleCategoriesData as any).map(
+        (cat: any) => cat.type
+    );
+    const [slider, setslider] = useState(11);
     const [styleCategorySelected, setstyleCategorySelected] = useState(
         styleCategories[0]
     );
-    const [styleType, setstyleType] = useState(styleCategorySelected[0].type);
-    const [styleSelected, setstyleSelected] = useState(style[0]);
+    const [styleType, setstyleType] = useState(
+        (styleCategorySelected as any)[0].type
+    );
+
+    const [styleSelected, setstyleSelected] = useState(
+        styleCategoriesData?.find((cat) => cat.type == styleCategorySelected)
+            ?.style[0]
+    );
+    const [styleGenerated, setstyleGenerated] = useState(
+        styleCategoriesData?.find((cat) => cat.type == styleCategorySelected)
+            ?.style[0]
+    );
+    const [styleGeneratedStep, setstyleGeneratedStep] = useState(11);
     const [imgDisplay, setimgDisplay] = useState("");
     const [imgsNames, setimgsNames] = useState(new Array());
-
+    const styleList = (styleCategoriesData as any).find(
+        (styleCat: any) => styleCat.type === styleCategorySelected
+    ).style;
+    const success = () => {
+        message.success({
+            content: <span className="custom-class-text">Style Applied</span>,
+            className: "custom-class",
+            duration:1
+        });
+    };
     useEffect(() => {
+        setstyleSelected(
+            styleCategoriesData?.find(
+                (cat) => cat.type == styleCategorySelected
+            )?.style[0]
+        );
         return () => {};
-    }, []);
+    }, [styleCategorySelected]);
+
     const tempImgsNames: string[] = [];
     useEffect(() => {
-        for (let i = 1; i <= 10; i++) {
-            let filename =
-                typeSelected + "_style_" + styleSelected.type + "_step_" + i;
+        for (let i = 1; i <= 20; i++) {
+            let filename = styleSelected?.type + "_step_" + i;
             tempImgsNames.push(filename);
         }
-        console.log(tempImgsNames);
-
         setimgDisplay(tempImgsNames[0]);
         setimgsNames(tempImgsNames);
         return () => {};
-    }, []);
+    }, [styleSelected]);
+
+    useEffect(() => {
+        setloading(true);
+        onGenerateImages(true);
+        setrand(Math.random());
+        if (isFirst) {
+            generateStyle(
+                isFirst,
+                typeSelected,
+                "",
+                inspiration,
+                "" + styleSelected?.type
+            ).then(() => {
+                console.log("generateStyle Done");
+                onGenerateImages(false);
+                setloading(false);
+            });
+            setisFirst(false);
+        } else {
+            generateStyle(
+                isFirst,
+                typeSelected,
+                "" + styleGenerated?.type,
+                styleGenerated?.type + "_step_" + styleGeneratedStep,
+                "" + styleSelected?.type
+            ).then(() => {
+                console.log("generateStyle Done");
+                onGenerateImages(false);
+                setloading(false);
+                setslider(11);
+            });
+        }
+        console.log(styleSelected);
+        return () => {};
+    }, [styleSelected]);
+
     return (
         <>
             <div>
                 <Row className="container">
                     <Col span={12}>
                         <div className="styled-images">
-                            {imgsNames.map((img) => {
-                                return (
-                                    <img
-                                        src={
-                                            base_url +
-                                            "style/" +
-                                            typeSelected +
-                                            "/" +
-                                            img +
-                                            ".jpg"
-                                        }
-                                        alt=""
-                                        className={
-                                            imgDisplay !== img
-                                                ? "invisible"
-                                                : ""
-                                        }
-                                    />
-                                );
-                            })}
+                            {!loading &&
+                                imgsNames.map((img) => {
+                                    // console.log(img);
+                                    return (
+                                        <img
+                                            src={
+                                                base_url +
+                                                "output/" +
+                                                typeSelected +
+                                                "/" +
+                                                styleSelected?.type +
+                                                "/" +
+                                                img +
+                                                ".jpg?" +
+                                                rand
+                                            }
+                                            alt=""
+                                            className={
+                                                styleSelected?.type +
+                                                    "_step_" +
+                                                    slider !==
+                                                img
+                                                    ? "invisible"
+                                                    : ""
+                                            }
+                                        />
+                                    );
+                                })}
                             {/* <img
                                 src={
                                     require("../assets/images/slider/inspiration2/pushchair_1.png")
@@ -119,7 +195,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                         <div className="generate-controller">
                             <h1>Customize {typeSelected}</h1>
                             <Row>
-                                {styleCategories.map((style: any) => {
+                                {(styleCategories as any).map((style: any) => {
                                     return (
                                         <Col
                                             style={{ marginRight: 8 }}
@@ -147,14 +223,14 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                 })}
                             </Row>
                             <Row className="select-style-container">
-                                {style.map((s) => {
+                                {styleList.map((s: any) => {
                                     return (
                                         <Col>
                                             <Card
                                                 className={
                                                     "select-style" +
                                                     " " +
-                                                    (styleSelected.type ===
+                                                    (styleSelected?.type ===
                                                         s.type &&
                                                         "select-style-selected")
                                                 }
@@ -169,7 +245,17 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                                             .default
                                                     }
                                                 ></img>
-                                                <h3>{s.type}</h3>
+                                                {/*  */}
+                                                <h3>
+                                                    {(
+                                                        "" +
+                                                        s.type.match(
+                                                            "(?<=" +
+                                                                typeSelected +
+                                                                "_).*"
+                                                        )
+                                                    ).replace("_", " ")}
+                                                </h3>
                                             </Card>
                                         </Col>
                                     );
@@ -192,15 +278,24 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = () => {
                                     <Card className={"container-slider-style"}>
                                         <Slider
                                             min={1}
-                                            max={10}
+                                            max={20}
+                                            value={slider}
                                             className="custom-slider"
                                             onChange={(val: any) => {
-                                                console.log(val);
+                                                setslider(val);
                                             }}
                                         />
                                         <Button
                                             className="btn-apply-style"
                                             type="primary"
+                                            onClick={() => {
+                                                setstyleGenerated(
+                                                    styleSelected
+                                                );
+                                                setstyleSelected(styleSelected);
+                                                setstyleGeneratedStep(slider);
+                                                success();
+                                            }}
                                         >
                                             Apply
                                         </Button>

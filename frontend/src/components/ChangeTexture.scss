@@ -1,0 +1,89 @@
+.container {
+    max-width: 1280px;
+    margin: auto;
+}
+.col-container {
+    height: 100vh;
+}
+.paint-draw-area-container {
+    // height: 200px;
+    // position: relative;
+
+    // margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-color: black;
+    border-style: solid;
+}
+.paint-draw-canvas {
+    width: 500px;
+    height: 500px;
+    // min-width: 300px;
+    // width: 30vw;
+    // height: 30vw;
+    margin: auto;
+}
+
+.paint-pallete-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    // border-color: black;
+    // border-style: solid;
+}
+.paint-pallete {
+    height: 10vw;
+    max-height: 100px;
+    width: 10vw;
+    max-width: 100px;
+    margin: 4px;
+    background: black;
+    border: 0;
+    border-radius: 16px;
+    border-width: 4px;
+    border-color: transparent;
+    border-style: solid;
+}
+.paint-pallete:hover {
+    border-width: 4px;
+    border-color: #0495D9;
+    border-style: solid;
+}
+.paint-controller-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.paint-controller-container > h1 {
+    font-weight: 800;
+    font-size: 32px;
+    color: #1f3260;
+}
+.button-type-select {
+    border-radius: 10px;
+    margin: 0 0.2em;
+    font-size: 3em;
+    height: 1.6em;
+    width: 1.6em;
+    padding: 0px !important;
+    border-width: 2px;
+    text-align: center;
+    background: transparent;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+    border-color: #D9D9D9 !important;
+    color: #D9D9D9 !important;
+}
+.button-type-select:hover {
+    background: #0495D9 !important;
+    color: white !important;
+    border-color: #0495D9 !important;
+}
+.button-type-active {
+    background: #0495D9 !important;
+    color: white !important;
+    border-color: #0495D9 !important;
+}

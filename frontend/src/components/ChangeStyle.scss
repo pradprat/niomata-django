@@ -287,3 +287,15 @@
 .select-style-container::-webkit-scrollbar-button {
     display: none;
 }
+.custom-class-text {
+    font-weight: 600;
+    font-size: 18px;
+    color: white;
+}
+.custom-class{
+    border-radius: 8px;
+}
+.ant-message-notice-content{
+    border-radius: 8px;
+    background: #1f3260;
+}
