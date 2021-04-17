@@ -1,0 +1,31 @@
+.ant-steps-item-active > div > div > .ant-steps-item-title {
+    font-weight: 700;
+    color: #1f3260;
+}
+.ant-steps-item-title {
+    margin-top: 0px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #BFBFBF;
+}
+// .ant-steps-item-active>
+.ant-steps-item-tail::after {
+    height: 10px !important;
+}
+.ant-steps-dot .ant-steps-item-tail {
+    top: -2px !important;
+}
+.ant-steps-dot .ant-steps-item-process .ant-steps-item-icon {
+    left: -8px;
+    top: -8px;
+    height: 25px;
+    width: 25px;
+}
+.ant-steps-dot .ant-steps-item-icon {
+    position: relative;
+    left: -8px;
+    top: -8px;
+    height: 25px;
+    width: 25px;
+}
+

@@ -8,6 +8,7 @@ import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateImage } from "../API";
 import { useDownloadURL } from "react-firebase-hooks/storage";
+import { Link } from "react-router-dom";
 // import firebase from "firebase/app";
 const { SubMenu } = Menu;
 const base_url = "http://localhost:8000/";
@@ -260,6 +261,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                     <Col span={12}>
                         <div className="generate-controller">
                             <h1>Inspiration</h1>
+                            <p>See ideas for your dream pushchair</p>
                             <Row>
                                 {!loading &&
                                     [1, 2, 3, 4, 5, 6].map((num) => {
@@ -316,21 +318,23 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                             >
                                 Generate Other
                             </Button>
-                            <Button
-                                className="btn-customize"
-                                type="primary"
-                                onClick={() => {
-                                    onChangeStyle();
-                                }}
-                            >
-                                <img
-                                    src={
-                                        require("../assets/images/art_pallete.svg")
-                                            .default
-                                    }
-                                ></img>
-                                Customize
-                            </Button>
+                            <Link to="/changeStyle">
+                                <Button
+                                    className="btn-customize"
+                                    type="primary"
+                                    onClick={() => {
+                                        onChangeStyle();
+                                    }}
+                                >
+                                    <img
+                                        src={
+                                            require("../assets/images/art_pallete.svg")
+                                                .default
+                                        }
+                                    ></img>
+                                    Customize
+                                </Button>
+                            </Link>
                         </div>
                     </Col>
                 </Row>

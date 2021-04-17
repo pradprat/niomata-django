@@ -1,15 +1,15 @@
 header {
   position: fixed;
-  display: flex;
   margin: auto;
   padding: 32px 32px;
   height: 10vh;
   width: 100%;
   align-items: center;
+  z-index: 100;
 }
-.logo {
-  flex: 1;
-}
+// .logo {
+//   flex: 1;
+// }
 .menu-nav {
   background: transparent !important;
 }

@@ -12,7 +12,9 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
 import { ChangeTexture } from "./components/ChangeTexture";
-
+import { Progress } from "./components/Progress";
+import { Switch, Route, Link } from "react-router-dom";
+import { ChooseType } from "./components/ChooseType";
 function App() {
     const [page, setpage] = useState("generateimage");
     const [loading, setloading] = useState(false);
@@ -36,29 +38,35 @@ function App() {
     return (
         <div className="App">
             {/* <img className="home-background" /> */}
-            {loading && <Loading></Loading>}
+            {/* {loading && <Loading></Loading>} */}
             <Header></Header>
-            {page === "generateimage" && (
-                <GenerateImage
-                    onChangeStyle={() => {
-                        setpage("changeStyle");
-                    }}
-                    onGenerateImages={(isLoad) => {
-                        setloading(isLoad);
-                    }}
-                    onSelectInspiration={(inpiration) => {
-                        setinspiration(inpiration);
-                    }}
-                ></GenerateImage>
-            )}
-            {page === "changeStyle" && (
-                <ChangeStyle
-                    inspiration={inspiration}
-                    onGenerateImages={(isLoad) => {
-                        setloading(isLoad);
-                    }}
-                ></ChangeStyle>
-            )}
+            <Switch>
+                <Route path="/generateimage">
+                    <GenerateImage
+                        onChangeStyle={() => {
+                            setpage("changeStyle");
+                        }}
+                        onGenerateImages={(isLoad) => {
+                            setloading(isLoad);
+                        }}
+                        onSelectInspiration={(inpiration) => {
+                            setinspiration(inpiration);
+                        }}
+                    ></GenerateImage>
+                </Route>
+                <Route path="/changeStyle">
+                    <ChangeStyle
+                        inspiration={inspiration}
+                        onGenerateImages={(isLoad) => {
+                            setloading(isLoad);
+                        }}
+                    ></ChangeStyle>
+                </Route>
+                <Route path="/">
+                    <ChooseType></ChooseType>
+                </Route>
+            </Switch>
+
             {/* <ChangeStyle></ChangeStyle> */}
             {/* <ChangeTexture></ChangeTexture> */}
         </div>
