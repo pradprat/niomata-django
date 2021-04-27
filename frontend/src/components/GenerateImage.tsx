@@ -9,6 +9,8 @@ import img from "../assets/images/slider/frame00050.png";
 import { generateImage } from "../API";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { pageAnimation, pageTransition } from "../Animation";
 // import firebase from "firebase/app";
 const { SubMenu } = Menu;
 const base_url = "http://localhost:8000/";
@@ -185,7 +187,20 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
 
     return (
         <>
-            <div>
+            <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageAnimation}
+                transition={pageTransition}
+                className="page-generate-image"
+                style={{
+                    transformStyle: "preserve-3d",
+                    position: "absolute",
+                    width: "100%",
+                    backfaceVisibility: "hidden",
+                }}
+            >
                 <Row className="container">
                     <Col span={12}>
                         <div className="generated-images">
@@ -213,7 +228,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                                     );
                                 })}
                         </div>
-                        <div className="type-selector">
+                        {/* <div className="type-selector">
                             <Button
                                 className={
                                     "button-type-select " +
@@ -256,7 +271,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                             >
                                 <Icon component={pushchair}></Icon>
                             </Button>
-                        </div>
+                        </div> */}
                     </Col>
                     <Col span={12}>
                         <div className="generate-controller">
@@ -338,7 +353,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </motion.div>
         </>
     );
 };

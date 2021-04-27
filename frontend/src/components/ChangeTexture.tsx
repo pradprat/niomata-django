@@ -10,6 +10,8 @@ import { generateStyle } from "../API";
 import { Style } from "./Style";
 import Icon from "@ant-design/icons";
 import Canvas from "./Canvas";
+import { motion } from "framer-motion";
+import { pageAnimation, pageTransition } from "../Animation";
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
@@ -20,17 +22,30 @@ export const ChangeTexture: React.FC<ChangeTextureProps> = () => {
     const [type, settype] = useState("pencil");
     return (
         <>
-            <div>
+            <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageAnimation}
+                transition={pageTransition}
+                className="page-generate-image"
+                style={{
+                    transformStyle: "preserve-3d",
+                    position: "absolute",
+                    width: "100%",
+                    backfaceVisibility: "hidden",
+                }}
+            >
                 <Row className="container">
                     <Col span={7} className="col-container">
                         <div className="paint-controller-container">
                             <h1>Set Pushchair Texture</h1>
-                            <div className="type-selector">
+                            <div className="draw-type-selector">
                                 <Button
                                     className={
-                                        "button-type-select " +
+                                        "button-draw-type-select " +
                                         (type === "pencil"
-                                            ? "button-type-active"
+                                            ? "button-draw-type-select-active"
                                             : "")
                                     }
                                     value="pencil"
@@ -42,9 +57,9 @@ export const ChangeTexture: React.FC<ChangeTextureProps> = () => {
                                 </Button>
                                 <Button
                                     className={
-                                        "button-type-select " +
+                                        "button-draw-type-select " +
                                         (type === "fill"
-                                            ? "button-type-active"
+                                            ? "button-draw-type-select-active"
                                             : "")
                                     }
                                     value="fill"
@@ -56,9 +71,9 @@ export const ChangeTexture: React.FC<ChangeTextureProps> = () => {
                                 </Button>
                                 <Button
                                     className={
-                                        "button-type-select " +
+                                        "button-draw-type-select " +
                                         (type === "eraser"
-                                            ? "button-type-active"
+                                            ? "button-draw-type-select-active"
                                             : "")
                                     }
                                     value="eraser"
@@ -105,7 +120,7 @@ export const ChangeTexture: React.FC<ChangeTextureProps> = () => {
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </motion.div>
         </>
     );
 };

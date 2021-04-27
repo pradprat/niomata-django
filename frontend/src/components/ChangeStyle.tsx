@@ -18,6 +18,8 @@ import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateStyle } from "../API";
 import { Style } from "./Style";
+import { motion } from "framer-motion";
+import { pageAnimation, pageTransition } from "../Animation";
 const base_url = "http://localhost:8000/";
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
@@ -66,7 +68,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
         message.success({
             content: <span className="custom-class-text">Style Applied</span>,
             className: "custom-class",
-            duration:1
+            duration: 1,
         });
     };
     useEffect(() => {
@@ -126,7 +128,19 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
 
     return (
         <>
-            <div>
+            <motion.div
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageAnimation}
+                transition={pageTransition}
+                style={{
+                    transformStyle: "preserve-3d",
+                    position: "absolute",
+                    width: "100%",
+                    backfaceVisibility: "hidden",
+                }}
+            >
                 <Row className="container">
                     <Col span={12}>
                         <div className="styled-images">
@@ -194,6 +208,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                     <Col span={12}>
                         <div className="generate-controller">
                             <h1>Customize {typeSelected}</h1>
+                            <p>Set style for each part of the product</p>
                             <Row>
                                 {(styleCategories as any).map((style: any) => {
                                     return (
@@ -276,15 +291,32 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                             <Row style={{ marginTop: 8 }}>
                                 <Col span={24}>
                                     <Card className={"container-slider-style"}>
-                                        <Slider
-                                            min={1}
-                                            max={20}
-                                            value={slider}
-                                            className="custom-slider"
-                                            onChange={(val: any) => {
-                                                setslider(val);
-                                            }}
-                                        />
+                                        <Row>
+                                            <Col span={3}>
+                                                <h3 style={{ color: "white" }}>
+                                                    More Simple
+                                                </h3>
+                                            </Col>
+                                            <Col
+                                                span={18}
+                                                style={{ padding: "4px 16px" }}
+                                            >
+                                                <Slider
+                                                    min={1}
+                                                    max={20}
+                                                    value={slider}
+                                                    className="custom-slider"
+                                                    onChange={(val: any) => {
+                                                        setslider(val);
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col span={3}>
+                                                <h3 style={{ color: "white" }}>
+                                                    More Complex
+                                                </h3>
+                                            </Col>
+                                        </Row>
                                         <Button
                                             className="btn-apply-style"
                                             type="primary"
@@ -322,7 +354,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </motion.div>
         </>
     );
 };

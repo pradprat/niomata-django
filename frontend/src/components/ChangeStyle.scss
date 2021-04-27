@@ -17,6 +17,11 @@
     font-weight: 800;
     color: #1f3260;
 }
+.generate-controller > p {
+    font-weight: 500;
+    color: #828282;
+    font-size: 16px;
+}
 .custom-slider .ant-slider-handle {
     color: black !important;
     width: 30px;
@@ -155,18 +160,19 @@
 }
 
 .btn-apply-style {
-    margin-right: 16px;
-    width: 169px;
+    float: right;
+    width: 180px;
     font-weight: 700;
     font-size: 16px;
-    height: 52px;
+    height: 60px;
     border-radius: 10px;
+    
     color: #1f3260 !important;
     background: white !important;
 }
 .btn-apply-style:hover {
     color: #373b46 !important;
-    background: white !important;
+    background: rgb(255, 255, 255) !important;
 }
 
 .btn-set-texture {
@@ -176,6 +182,11 @@
     font-size: 16px;
     height: 64px;
     border-radius: 10px;
+}
+.btn-set-texture:hover{
+    color: #ffffff !important;
+    background: #0495d9 !important;
+    border-color: #0495d9 !important;
 }
 .btn-select-category-style {
     border-width: 1px;
@@ -226,7 +237,7 @@
 }
 
 .custom-slider {
-    width: 100%;
+    // width: 100%;
     margin: auto;
     margin-bottom: 32px;
 }

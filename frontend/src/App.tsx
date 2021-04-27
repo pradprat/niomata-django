@@ -3,7 +3,6 @@ import logo from "./logo.svg";
 import "./antd.less";
 import "./App.scss";
 import { Header } from "./components/Header";
-import background from "./assets/images/rectangle.svg";
 import { GenerateImage } from "./components/GenerateImage";
 import { ChangeStyle } from "./components/ChangeStyle";
 import { Loading } from "./components/Loading";
@@ -13,9 +12,12 @@ import "firebase/auth";
 import "firebase/storage";
 import { ChangeTexture } from "./components/ChangeTexture";
 import { Progress } from "./components/Progress";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, useLocation } from "react-router-dom";
 import { ChooseType } from "./components/ChooseType";
+import { AnimatePresence } from "framer-motion";
+import background from "./assets/images//background/background.svg";
 function App() {
+    const location = useLocation();
     const [page, setpage] = useState("generateimage");
     const [loading, setloading] = useState(false);
     const [inspiration, setinspiration] = useState("stroller_1");
@@ -36,36 +38,51 @@ function App() {
     }, []);
 
     return (
-        <div className="App">
-            {/* <img className="home-background" /> */}
+        <div className="App" style={{ perspective: "4000px" }}>
             {/* {loading && <Loading></Loading>} */}
             <Header></Header>
-            <Switch>
-                <Route path="/generateimage">
-                    <GenerateImage
-                        onChangeStyle={() => {
-                            setpage("changeStyle");
-                        }}
-                        onGenerateImages={(isLoad) => {
-                            setloading(isLoad);
-                        }}
-                        onSelectInspiration={(inpiration) => {
-                            setinspiration(inpiration);
-                        }}
-                    ></GenerateImage>
-                </Route>
-                <Route path="/changeStyle">
-                    <ChangeStyle
-                        inspiration={inspiration}
-                        onGenerateImages={(isLoad) => {
-                            setloading(isLoad);
-                        }}
-                    ></ChangeStyle>
-                </Route>
-                <Route path="/">
-                    <ChooseType></ChooseType>
-                </Route>
-            </Switch>
+            <div>
+                <img className="home-background" src={background} />
+                <AnimatePresence>
+                    <Switch location={location} key={location.pathname}>
+                        <Route
+                            path="/generateimage"
+                            render={() => (
+                                <GenerateImage
+                                    onChangeStyle={() => {
+                                        setpage("changeStyle");
+                                    }}
+                                    onGenerateImages={(isLoad) => {
+                                        setloading(isLoad);
+                                    }}
+                                    onSelectInspiration={(inpiration) => {
+                                        setinspiration(inpiration);
+                                    }}
+                                ></GenerateImage>
+                            )}
+                        />
+                        <Route
+                            path="/changeStyle"
+                            render={() => (
+                                <ChangeStyle
+                                    inspiration={inspiration}
+                                    onGenerateImages={(isLoad) => {
+                                        setloading(isLoad);
+                                    }}
+                                ></ChangeStyle>
+                            )}
+                        ></Route>
+                        <Route
+                            path="/changetexture"
+                            render={() => <ChangeTexture></ChangeTexture>}
+                        ></Route>
+                        <Route
+                            path="/"
+                            render={() => <ChooseType></ChooseType>}
+                        ></Route>
+                    </Switch>
+                </AnimatePresence>
+            </div>
 
             {/* <ChangeStyle></ChangeStyle> */}
             {/* <ChangeTexture></ChangeTexture> */}

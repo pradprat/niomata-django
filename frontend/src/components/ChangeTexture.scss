@@ -48,7 +48,7 @@
 }
 .paint-pallete:hover {
     border-width: 4px;
-    border-color: #0495D9;
+    border-color: #0495d9;
     border-style: solid;
 }
 .paint-controller-container {
@@ -61,7 +61,7 @@
     font-size: 32px;
     color: #1f3260;
 }
-.button-type-select {
+.button-draw-type-select {
     border-radius: 10px;
     margin: 0 0.2em;
     font-size: 3em;
@@ -74,16 +74,22 @@
     line-height: 1.5;
     display: inline-block;
     vertical-align: middle;
-    border-color: #D9D9D9 !important;
-    color: #D9D9D9 !important;
+    border-color: #d9d9d9 !important;
+    color: #d9d9d9 !important;
 }
-.button-type-select:hover {
-    background: #0495D9 !important;
+.button-draw-type-select:hover {
+    margin: 0 0em;
+    height: 2em !important;
+    width: 2em !important;
+    background: #0495d9 !important;
     color: white !important;
-    border-color: #0495D9 !important;
+    border-color: #0495d9 !important;
 }
-.button-type-active {
-    background: #0495D9 !important;
+.button-draw-type-select-active {
+    margin: 0 0.2em !important;
+    height: 2em !important;
+    width: 2em !important;
+    background: #0495d9 !important;
     color: white !important;
-    border-color: #0495D9 !important;
+    border-color: #0495d9 !important;
 }

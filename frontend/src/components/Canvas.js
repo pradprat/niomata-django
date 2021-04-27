@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-
+import stroller0 from "../assets/images/changeTexture/stroller_2.png";
+import stroller1 from "../assets/images/changeTexture/stroller_1.png";
+var normal = new Image();
+normal.src = stroller0;
+var mod = new Image();
+mod.src = stroller1;
 class Canvas extends Component {
     constructor(props) {
         super(props);
@@ -7,6 +12,8 @@ class Canvas extends Component {
         this.onMouseMove = this.onMouseMove.bind(this);
         this.endPaintEvent = this.endPaintEvent.bind(this);
     }
+
+
     isPainting = false;
     line = [];
     prevPos = { offsetX: 0, offsetY: 0 };
@@ -46,11 +53,22 @@ class Canvas extends Component {
                     stop: { ...offSetData },
                 };
                 this.line = this.line.concat(this.position);
-                this.paint(
-                    this.prevPos,
-                    offSetData,
-                    this.props.strokeColor,
-                    this.props.strokeWidth
+                // this.paint(
+                //     this.prevPos,
+                //     offSetData,
+                //     this.props.strokeColor,
+                //     this.props.strokeWidth
+                // );
+                this.ctx.drawImage(
+                    mod,
+                    offsetX - 10,
+                    offsetY - 10,
+                    20,
+                    20,
+                    offsetX - 10,
+                    offsetY - 10,
+                    20,
+                    20
                 );
             }
         } else if (this.props.type == "eraser") {
@@ -62,11 +80,22 @@ class Canvas extends Component {
                     stop: { ...offSetData },
                 };
                 this.line = this.line.concat(this.position);
-                this.paint(
-                    this.prevPos,
-                    offSetData,
-                    "#FFFFFF",
-                    this.props.strokeWidth
+                // this.paint(
+                //     this.prevPos,
+                //     offSetData,
+                //     "#FFFFFF",
+                //     this.props.strokeWidth
+                // );
+                this.ctx.drawImage(
+                    normal,
+                    offsetX - 10,
+                    offsetY - 10,
+                    20,
+                    20,
+                    offsetX - 10,
+                    offsetY - 10,
+                    20,
+                    20
                 );
             }
         }
@@ -185,6 +214,14 @@ class Canvas extends Component {
         this.ctx.lineJoin = "round";
         this.ctx.lineCap = "round";
         this.ctx.lineWidth = 5;
+        this.ctx.drawImage(
+            normal,
+            0,
+            0,
+            // this.canvas.width,
+            // this.canvas.height
+
+        );
     }
 
     render() {

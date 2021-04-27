@@ -18,7 +18,7 @@ export const Progress: React.FC<ProgressProps> = ({}: ProgressProps) => {
             case "changeStyle":
                 setstep(1);
                 break;
-            case "":
+            case "changetexture":
                 setstep(2);
                 break;
             default:
@@ -46,7 +46,7 @@ export const Progress: React.FC<ProgressProps> = ({}: ProgressProps) => {
                 />
                 <Step
                     title="Set Texture"
-                    onClick={() => goTo("/")}
+                    onClick={() => goTo("/changetexture")}
                     style={{ cursor: "pointer" }}
                 />
                 <Step
