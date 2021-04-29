@@ -1,0 +1,57 @@
+.choose-type {
+    background: linear-gradient(180deg, #18274e 0%, #1d2f5c 100%);
+    min-height: 100vh;
+}
+.text-container {
+    margin: 32px;
+    top: 40%;
+    position: absolute;
+}
+.text-container > h1 {
+    font-family: "DM Serif Display";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    font-size: 60px;
+    line-height: 100%;
+    color: #ffffff;
+}
+.text-container > h1 > span {
+    color: #ff9393;
+}
+.text-container > Button {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    width: 231px;
+    height: 68px;
+    background: #ff9393 !important;
+    border-radius: 35px;
+    border-color: #ff9393 !important;
+}
+.text-container > Button:hover {
+    border-color: #ff9393 !important;
+    background: white !important;
+
+}
+.image-container {
+    margin: 32px;
+    margin-top: 30%;
+}
+.image-container > img {
+    max-width: 500px;
+    margin: auto;
+}
+.home-background {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50vw;
+}
+.get-started-modal>.ant-modal-content {
+    width: 1072px;
+    height: 769px;
+    border-radius: 32px;
+}

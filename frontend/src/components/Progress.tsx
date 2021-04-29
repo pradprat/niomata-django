@@ -22,7 +22,7 @@ export const Progress: React.FC<ProgressProps> = ({}: ProgressProps) => {
                 setstep(2);
                 break;
             default:
-                setstep(0);
+                setstep(-1);
                 break;
         }
         return () => {};
@@ -33,28 +33,30 @@ export const Progress: React.FC<ProgressProps> = ({}: ProgressProps) => {
     };
     return (
         <>
-            <Steps current={step} progressDot type="default">
-                <Step
-                    title="Choose Product"
-                    onClick={() => goTo("/generateimage")}
-                    style={{ cursor: "pointer" }}
-                />
-                <Step
-                    title="Customize"
-                    onClick={() => goTo("/changeStyle")}
-                    style={{ cursor: "pointer" }}
-                />
-                <Step
-                    title="Set Texture"
-                    onClick={() => goTo("/changetexture")}
-                    style={{ cursor: "pointer" }}
-                />
-                <Step
-                    title="Share Your Creation"
-                    onClick={() => goTo("/")}
-                    style={{ cursor: "pointer" }}
-                />
-            </Steps>
+            {step !== -1 && (
+                <Steps current={step} progressDot type="default">
+                    <Step
+                        title="Choose Product"
+                        onClick={() => goTo("/generateimage")}
+                        style={{ cursor: "pointer" }}
+                    />
+                    <Step
+                        title="Customize"
+                        onClick={() => goTo("/changeStyle")}
+                        style={{ cursor: "pointer" }}
+                    />
+                    <Step
+                        title="Set Texture"
+                        onClick={() => goTo("/changetexture")}
+                        style={{ cursor: "pointer" }}
+                    />
+                    <Step
+                        title="Share Your Creation"
+                        onClick={() => goTo("/")}
+                        style={{ cursor: "pointer" }}
+                    />
+                </Steps>
+            )}
         </>
     );
 };

@@ -204,6 +204,7 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                 <Row className="container">
                     <Col span={12}>
                         <div className="generated-images">
+                            <img src="stroller.jpg"></img>
                             {!loading &&
                                 imgsNames.map((img: any) => {
                                     return (

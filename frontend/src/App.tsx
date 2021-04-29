@@ -15,7 +15,6 @@ import { Progress } from "./components/Progress";
 import { Switch, Route, Link, useLocation } from "react-router-dom";
 import { ChooseType } from "./components/ChooseType";
 import { AnimatePresence } from "framer-motion";
-import background from "./assets/images//background/background.svg";
 function App() {
     const location = useLocation();
     const [page, setpage] = useState("generateimage");
@@ -42,7 +41,6 @@ function App() {
             {/* {loading && <Loading></Loading>} */}
             <Header></Header>
             <div>
-                <img className="home-background" src={background} />
                 <AnimatePresence>
                     <Switch location={location} key={location.pathname}>
                         <Route
