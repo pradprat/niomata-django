@@ -18,8 +18,10 @@ import { ReactComponent as childseat } from "../assets/images/childseat.svg";
 import img from "../assets/images/slider/frame00050.png";
 import { generateStyle } from "../API";
 import { Style } from "./Style";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { pageAnimation, pageTransition } from "../Animation";
+import { Loading } from "./Loading";
+import { useHistory } from "react-router";
 const base_url = "http://localhost:8000/";
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
@@ -31,6 +33,7 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
     onGenerateImages,
     inspiration,
 }: ChangeStyleProps) => {
+    const history = useHistory();
     console.log(inspiration);
     const [isFirst, setisFirst] = useState(true);
     const [loading, setloading] = useState(true);
@@ -139,8 +142,32 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                     position: "absolute",
                     width: "100%",
                     backfaceVisibility: "hidden",
+                    zIndex: !loading ? 0 : 2,
                 }}
             >
+                <AnimatePresence>
+                    {loading && (
+                        <motion.div
+                            key={"loading"}
+                            initial={false}
+                            animate={{ y: 0 }}
+                            exit={{ y: "100vh" }}
+                            transition={{
+                                // delay: 1,
+                                duration: 0.6,
+                                ease: "easeOut",
+                            }}
+                            style={{
+                                position: "absolute",
+                                height: "100%",
+                                width: "100%",
+                                zIndex: 2,
+                            }}
+                        >
+                            <Loading></Loading>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
                 <Row className="container">
                     <Col span={12}>
                         <div className="styled-images">
@@ -213,7 +240,9 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                                 {(styleCategories as any).map((style: any) => {
                                     return (
                                         <Col
-                                            style={{ marginRight: 8 }}
+                                            style={{
+                                                marginRight: 8,
+                                            }}
                                             key={style}
                                         >
                                             <Button
@@ -254,12 +283,12 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                                                     setstyleSelected(s);
                                                 }}
                                             >
-                                                <img
+                                                {/* <img
                                                     src={
                                                         require("../assets/images/style/pushchair_default.png")
                                                             .default
                                                     }
-                                                ></img>
+                                                ></img> */}
                                                 {/*  */}
                                                 <h3>
                                                     {(
@@ -293,13 +322,19 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                                     <Card className={"container-slider-style"}>
                                         <Row>
                                             <Col span={3}>
-                                                <h3 style={{ color: "white" }}>
+                                                <h3
+                                                    style={{
+                                                        color: "white",
+                                                    }}
+                                                >
                                                     More Simple
                                                 </h3>
                                             </Col>
                                             <Col
                                                 span={18}
-                                                style={{ padding: "4px 16px" }}
+                                                style={{
+                                                    padding: "4px 16px",
+                                                }}
                                             >
                                                 <Slider
                                                     min={1}
@@ -312,7 +347,11 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                                                 />
                                             </Col>
                                             <Col span={3}>
-                                                <h3 style={{ color: "white" }}>
+                                                <h3
+                                                    style={{
+                                                        color: "white",
+                                                    }}
+                                                >
                                                     More Complex
                                                 </h3>
                                             </Col>
@@ -341,6 +380,9 @@ export const ChangeStyle: React.FC<ChangeStyleProps> = ({
                                 <Button
                                     className="btn-set-texture"
                                     type="primary"
+                                    onClick={() => {
+                                        history.push("/generateimage");
+                                    }}
                                 >
                                     {/* <img
                                     src={

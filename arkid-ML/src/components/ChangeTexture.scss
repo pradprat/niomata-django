@@ -1,0 +1,182 @@
+.container {
+    max-width: 1280px;
+    margin: auto;
+}
+.col-container {
+    height: 100vh;
+}
+.paint-draw-area-container {
+    // height: 200px;
+    // position: relative;
+
+    // margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // border-color: black;
+    // border-style: solid;
+}
+.paint-draw-canvas {
+    width: 500px;
+    height: 500px;
+    // min-width: 300px;
+    // width: 30vw;
+    // height: 30vw;
+    margin: auto;
+}
+
+.paint-pallete-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 40px;
+    // border-color: black;
+    // border-style: solid;
+}
+.paint-pallete {
+    height: 10vw;
+    max-height: 140px;
+    width: 10vw;
+    max-width: 140px;
+    margin: 4px;
+    background: white;
+    border: 0;
+    border-radius: 16px;
+    border-width: 4px;
+    border-color: transparent;
+    border-style: solid;
+}
+.paint-pallete > .ant-card-body {
+    padding: 0;
+    overflow: hidden;
+    overflow-y: hidden;
+}
+.paint-pallete > .ant-card-body > img {
+    width: 100%;
+    border-radius: 10px;
+}
+.paint-pallete:hover {
+    border-width: 4px;
+    border-color: #ff9393;
+    border-style: solid;
+}
+.paint-controller-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.paint-controller-container > h1 {
+    font-family: "DM Serif Display";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 38px;
+    line-height: 100%;
+    color: #1f3260 !important;
+}
+.button-draw-type-select {
+    border-radius: 10px;
+    margin: 0 0.2em;
+    font-size: 3em;
+    height: 1.6em;
+    width: 1.6em;
+    padding: 0px !important;
+    border-width: 2px;
+    text-align: center;
+    background: transparent;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+    border-color: #d9d9d9 !important;
+    color: #d9d9d9 !important;
+}
+.button-draw-type-select:hover {
+    margin: 0 0em;
+    height: 2em !important;
+    width: 2em !important;
+    background: #ff9393 !important;
+    color: white !important;
+    border-color: #ff9393 !important;
+}
+.button-draw-type-select-active {
+    margin: 0 0.2em !important;
+    height: 2em !important;
+    width: 2em !important;
+    background: #ff9393 !important;
+    color: white !important;
+    border-color: #ff9393 !important;
+}
+.btn-texture-container {
+    bottom: 0;
+    left: 0;
+    margin: 40px;
+    position: absolute;
+    // transform: translateY(-50%);
+}
+.btn-save-texture {
+    margin-right: 16px;
+    width: 130px;
+    font-weight: 700;
+    font-size: 16px;
+    height: 64px;
+    border-radius: 10px;
+}
+.btn-save-texture:hover {
+    color: #ffffff !important;
+    background: #ff9393 !important;
+    border-color: #ff9393 !important;
+}
+.share-image-container {
+    background: white;
+    padding: 24px;
+    height: 769px;
+}
+.share-text-container {
+    background: #1d2f5c;
+    padding: 24px;
+    color: white;
+    height: 769px;
+}
+.share-modal > .ant-modal-content {
+    width: 1072px;
+    height: 769px;
+    border-radius: 32px;
+    overflow: hidden;
+}
+.share-modal > .ant-modal-content > .ant-modal-body {
+    padding: 0 !important;
+}
+.share-text-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 32px;
+}
+.share-text-content > h1 {
+    font-family: "DM Serif Display";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 38px;
+    line-height: 100%;
+    color: white;
+}
+.button-share-link-copy {
+    width: 60px;
+    height: 60px;
+    background: #ff9393;
+    border-radius: 8px;
+    border-color: #ff9393;
+}
+.button-share-link-copy :hover {
+    background: #ffffff !important;
+}
+.form-share-link-copy {
+    background: #dfe6f7;
+    border-radius: 8px;
+    margin-right: 16px;
+    font-family: "Montserrat";
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 20px;
+}

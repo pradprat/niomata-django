@@ -1,0 +1,36 @@
+.home-background{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    margin-top: -10vh;
+}
+.home{
+    display: flex;
+    height: 100vh - 10vh;
+    max-width: 1024px;
+    align-items: center;
+    margin: auto 32px;
+}
+
+.presentation{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    // margin: 10vw;
+}
+
+.home-images{
+    flex: 1;
+}
+.home-content{
+    // text-align: center;
+    flex: 1;
+}
+
+.home-button{
+    margin-top: 16px;
+    border-radius: 10px;
+    height: 81px;
+    font-size: 24px;
+    font-weight: bold;
+}

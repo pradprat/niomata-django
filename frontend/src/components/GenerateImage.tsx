@@ -9,8 +9,9 @@ import img from "../assets/images/slider/frame00050.png";
 import { generateImage } from "../API";
 import { useDownloadURL } from "react-firebase-hooks/storage";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { pageAnimation, pageTransition } from "../Animation";
+import { Loading } from "./Loading";
 // import firebase from "firebase/app";
 const { SubMenu } = Menu;
 const base_url = "http://localhost:8000/";
@@ -18,16 +19,18 @@ interface GenerateImageProps {
     onChangeStyle: () => any;
     onGenerateImages: (isLoad: boolean) => void;
     onSelectInspiration: (inspiration: string) => void;
+    typeSelected: string;
 }
 export const GenerateImage: React.FC<GenerateImageProps> = ({
     onChangeStyle,
     onGenerateImages,
     onSelectInspiration,
+    typeSelected,
 }) => {
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({} as any), []);
     const [slider, setslider] = useState(50);
-    const [typeSelected, settypeselected] = useState("stroller");
+    // const [typeSelected, settypeselected] = useState("stroller");
     const [inspirationSelected, setinspirationSelected] = useState(1);
     const [inspirationDisplay, setinspirationDisplay] = useState(
         typeSelected + "_1"
@@ -199,12 +202,36 @@ export const GenerateImage: React.FC<GenerateImageProps> = ({
                     position: "absolute",
                     width: "100%",
                     backfaceVisibility: "hidden",
+                    zIndex: !loading ? 0 : 2,
                 }}
             >
+                <AnimatePresence>
+                    {loading && (
+                        <motion.div
+                            key={"loading"}
+                            // initial={false}
+                            animate={{ y: 0 }}
+                            exit={{ y: "100vh" }}
+                            transition={{
+                                // delay: 1,
+                                duration: 0.6,
+                                ease: "easeOut",
+                            }}
+                            style={{
+                                position: "absolute",
+                                height: "100%",
+                                width: "100%",
+                                zIndex: 2,
+                            }}
+                        >
+                            <Loading></Loading>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
                 <Row className="container">
                     <Col span={12}>
                         <div className="generated-images">
-                            <img src="stroller.jpg"></img>
+                            {/* <img src="stroller.jpg"></img> */}
                             {!loading &&
                                 imgsNames.map((img: any) => {
                                     return (
